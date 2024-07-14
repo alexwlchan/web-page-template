@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <script src="app.js"></script>
+
+  <link href="style.css" rel="stylesheet">
+
+  <style>
+    /* css is harder, e.g. no unit tests, cross-browser */
+    /* been copy-pasting */
+
+    /* set up basic colors
+     * css variables fairly new for me, used css preprocessor e.g. sass before
+     * but always light user so CSS vars have mostly displaced it
+     * love the way I can override variables on individual elements, useful e.g. for per-element tint colors
+     * still missing colors but oh well */
+    :root {
+      --header-background-color: LightGreen;
+      --footer-background-color: PowderBlue;
+    }
+
+    header { background: var(--header-background-color); }
+    footer { background: var(--footer-background-color); }
+
+    /* can see layout of page, but colour blocks don't go to edge of page.
+     * caused by default body margins, come from CSS User Agent stylesheet
+     * can be overriden by normalize.css, maybe if I knew more about default ss
+     * fix that next */
+    body { margin: 0; }
+
+    /* not necessary in major browsers which only set default margin, but
+     * doesn't hurt */
+    body { padding: 0; }
+
+    /* so now colors fill page, but:
+     * text fills screen, too wide! only want a few alphabets */
+    /* text goes all the way to edge */
+
+    /* fix the width first */
+    /* do need to add inner elements for text, e.g. <p> */
+    /* isn't this being replaced soon? */
+    /* depends on other varibales, e.g. font and size, whether it's text or image-heavy */
+    /* what does auto mean here? */
+    /* should I be doing px or em? */
+    /* between 2 and 3 alphabets wide */
+    /* https://www.joshwcomeau.com/css/surprising-truth-about-pixels-and-accessibility/ */
+    :root {
+/*      --max-width: 750px;*/
+      --max-width: 334rem;
+    }
+
+    header > *, main, footer > * {
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    /* now text goes all the ay to edge, let's fix that */
+    :root {
+      --padding: 1em;
+    }
+
+    header > *, main, footer > * {
+      padding: var(--padding);
+    }
+
+    /* todo: padding! */
+
+    header > *, main, footer > * {
+      padding-left:  calc(var(--padding) + env(safe-area-inset-left));
+      padding-right: calc(var(--padding) + env(safe-area-inset-right));
+    }
+
+    /* want to push footer all the way to the bottom */
+    /* used to have a solution using flex, but I don't really understand flex
+     * never had to use it
+     * can accomplish similar technique using grid!
+     * auto in grid is confusing after margin
+     */
+    body {
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+    }
+
+  </style>
+</head>
+
+<body>
+  <header>
+    <p>
+      abcdefghijklm nopqrstuvwxyz
+      abcdefghijklm nopqrstuvwxyz
+      abcdefghijklm nopqrstuvwxyz
+      abcdefghijklm nopqrstuvwxyz
+      abcdefghijklm nopqrstuvwxyz
+      abcdefghijklm nopqrstuvwxyz
+    </p>
+  </header>
+
+  <main>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </p>
+  </main>
+
+  <footer>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </p>
+  </footer>
+</body>
+
+</html>
