@@ -27,7 +27,7 @@ pushd $(mktemp -d)
 EOF
 
   # Get the HTML template as a JSON-escaped string
-  snippet=$(jq -R -s '.' < "$ROOT/index.html")
+  snippet=$(jq -R -s '.' < "$ROOT/TEMPLATE.html")
 
   # This is an arbitrary choice of ID; it just has to be used consistently
   snippet_id="$(uuidgen)"
