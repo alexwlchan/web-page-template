@@ -10,6 +10,9 @@ KEYWORD="!html"
 ROOT=$(git rev-parse --show-toplevel)
 
 pushd $(mktemp -d)
+
+  # 1. Create the `info.plist` files with the settings for this collection
+  #    of snippets: no keyword prefix/suffix.
   cat > info.plist <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -29,6 +32,8 @@ EOF
   # This is an arbitrary choice of ID; it just has to be used consistently
   snippet_id="$(uuidgen)"
 
+  # 2. Create the snippet JSON file, which expands the HTML when I type the
+  #    given keyword.
   cat > "$snippet_id.json" <<EOF
 {
     "alfredsnippet": {
@@ -40,6 +45,8 @@ EOF
 }
 EOF
 
+  # 3. Bundle the info.plist and snippet JSON into an `alfredsnippets`
+  #    package, and open it in Alfred.
   zip "HTML template.alfredsnippets" "info.plist" "$snippet_id.json"
   open "HTML template.alfredsnippets"
 popd
